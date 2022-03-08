@@ -32,6 +32,26 @@ header {
   margin-bottom: 30px;
 }
 
+.header-title, .header-links, .header-link {
+  display: inline-block
+}
+
+.header-link {
+  margin-left: 16px;
+}
+
+.header-link a:link {
+  text-decoration: none;
+}
+
+.header-link a:hover {
+  text-decoration: underline;
+}
+
+.header-link a.active {
+  color: #ccc;
+}
+
 .card {
   background-color: #fff;
   color: #333;
