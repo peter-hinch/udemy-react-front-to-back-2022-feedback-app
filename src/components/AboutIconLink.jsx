@@ -5,7 +5,16 @@ function AboutIconLink() {
   return (
     <div className="about-link">
       <Link to='/about'>
-      <FaQuestion size={30} />
+      {/* The Link to attribute can also be passed an object. This allows
+      passing in parameters such as search query and hash. */}
+      {/* <Link
+        to={{
+          pathname: '/about',
+          search: '?sort=name'
+          hash: '#hello'
+        }}
+      > */}
+        <FaQuestion size={30} />
       </Link>
     </div>
   );
