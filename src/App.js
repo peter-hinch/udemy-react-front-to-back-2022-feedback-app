@@ -28,16 +28,20 @@ function App() {
       <Header text="Hello World"/>
       <div className="container">
         <Routes>
-          <Route exact path='/' element={
-            <>
-              <FeedbackForm handleAdd={addFeedback}/>
-              <FeedbackStats feedback={feedback} />
-              <FeedbackList
-                feedback={feedback}
-                handleDelete={deleteFeedback} 
-              />
-            </>
-          } />
+          <Route
+            exact
+            path='/'
+            element={
+              <>
+                <FeedbackForm handleAdd={addFeedback}/>
+                <FeedbackStats feedback={feedback} />
+                <FeedbackList
+                  feedback={feedback}
+                  handleDelete={deleteFeedback} 
+                />
+              </>
+            }
+          />
           <Route path='/about' element={<AboutPage />} />
         </Routes>
       </div>
