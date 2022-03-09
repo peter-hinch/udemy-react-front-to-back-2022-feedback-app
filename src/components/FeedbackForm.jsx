@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import FeedbackContext from '../context/FeedbackContext';
 import Card from './shared/Card';
 import RatingSelect from './RatingSelect';
@@ -10,8 +10,17 @@ function FeedbackForm() {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
 
-  // Import the addFeedback function from FeedbackContext.
-  const { addFeedback } = useContext(FeedbackContext);
+  // Import the addFeedback function and feedbackEditItem object from FeedbackContext.
+  const { addFeedback, feedbackEditItem, updateFeedback } =
+    useContext(FeedbackContext);
+
+  useEffect(() => {
+    if (feedbackEditItem.edit === true) {
+      setBtnDisabled(false);
+      setText(feedbackEditItem.item.text);
+      setRating(feedbackEditItem.item.rating);
+    }
+  }, [feedbackEditItem]);
 
   // Validate form:
   // - Disable button for less than 10 characters.
@@ -35,7 +44,13 @@ function FeedbackForm() {
     event.preventDefault();
     if (text.trim().length > 10) {
       const newFeedback = { text, rating };
-      addFeedback(newFeedback);
+
+      if (feedbackEditItem.edit === true) {
+        updateFeedback(feedbackEditItem.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
+
       setText('');
     }
   };
