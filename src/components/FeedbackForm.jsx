@@ -1,13 +1,17 @@
-import { useState } from "react";
-import Card from "./shared/Card";
-import RatingSelect from "./RatingSelect";
-import Button from "./shared/Button";
+import { useState, useContext } from 'react';
+import FeedbackContext from '../context/FeedbackContext';
+import Card from './shared/Card';
+import RatingSelect from './RatingSelect';
+import Button from './shared/Button';
 
-function FeedbackForm({ handleAdd }) {
+function FeedbackForm() {
   const [text, setText] = useState('');
   const [rating, setRating] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState('');
+
+  // Import the addFeedback function from FeedbackContext.
+  const { addFeedback } = useContext(FeedbackContext);
 
   // Validate form:
   // - Disable button for less than 10 characters.
@@ -25,22 +29,22 @@ function FeedbackForm({ handleAdd }) {
     }
 
     setText(event.target.value);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (text.trim().length > 10) {
       const newFeedback = { text, rating };
-      handleAdd(newFeedback);
+      addFeedback(newFeedback);
       setText('');
     }
-  }
+  };
 
   return (
     <Card>
       <form onSubmit={handleSubmit}>
         <h2>How would you rate your service with us?</h2>
-        <RatingSelect select={(rating) => setRating(rating)}/>
+        <RatingSelect select={(rating) => setRating(rating)} />
         <div className="input-group">
           <input
             type="text"
@@ -48,10 +52,7 @@ function FeedbackForm({ handleAdd }) {
             onChange={handleTextChange}
             value={text}
           />
-          <Button
-            type="submit"
-            isDisabled={btnDisabled}
-          >
+          <Button type="submit" isDisabled={btnDisabled}>
             Send
           </Button>
         </div>
@@ -59,7 +60,7 @@ function FeedbackForm({ handleAdd }) {
         {message && <div className="message">{message}</div>}
       </form>
     </Card>
-  )
+  );
 }
 
-export default FeedbackForm
+export default FeedbackForm;
